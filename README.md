@@ -1,27 +1,33 @@
-# Axium – ABM de Productos-Servicios
+# Axium – ABM de Productos y Servicios
 
-Proyecto base Symfony 6.4 con entorno Dockerizado para desarrollo backend API. Incluye configuración para PostgreSQL, Composer y servidor local en el puerto 8080.
+Proyecto base Symfony 6.4 con entorno Dockerizado para desarrollo backend API. Incluye configuración para PostgreSQL, Composer, Yarn y servidor Nginx en el puerto 8085.
 
 ## 🚀 Requisitos
 
 - Docker + Docker Compose
 - Git
 
-## 🧭 Instalación
+## 🧭 Instalación rápida
 
 ```bash
 git clone https://github.com/tu-usuario/axium.git
 cd axium
-docker-compose up --build -d
+docker compose up --build -d
+```
+
+## 🌐 Acceso a la app
+
+```
+http://localhost:8085
 ```
 
 ## 🐚 Acceso al contenedor PHP
 
 ```bash
-docker exec -it axium_test-php-1 bash
+docker compose exec php bash
 ```
 
-## ⚙️ Symfony setup (manual por ahora)
+## ⚙️ Setup Symfony (si no se hizo en el build)
 
 Dentro del contenedor:
 
@@ -29,10 +35,19 @@ Dentro del contenedor:
 composer install
 php bin/console doctrine:database:create
 php bin/console doctrine:migrations:migrate
-php -S 0.0.0.0:8000 -t public
 ```
 
-Accedé desde tu navegador:
+## 🎨 Compilación de assets (Stimulus, Turbo, Bootstrap)
+
+```bash
+yarn install
+yarn dev
 ```
-http://localhost:8000
+
+## 🛠️ Comandos útiles
+
+```bash
+docker compose down
+docker compose build
+docker compose exec php bash
 ```
