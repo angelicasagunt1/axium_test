@@ -1,39 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}TaxCondition index{% endblock %}
+{% block title %}Condiciones de IVA{% endblock %}
 
 {% block body %}
-    <h1>TaxCondition index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Code</th>
-                <th>Label</th>
-                <th>Rate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for tax_condition in tax_conditions %}
-            <tr>
-                <td>{{ tax_condition.id }}</td>
-                <td>{{ tax_condition.code }}</td>
-                <td>{{ tax_condition.label }}</td>
-                <td>{{ tax_condition.rate }}</td>
-                <td>
-                    <a href="{{ path('app_tax_condition_show', {'id': tax_condition.id}) }}">show</a>
-                    <a href="{{ path('app_tax_condition_edit', {'id': tax_condition.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_tax_condition_new') }}">Create new</a>
+    <div class="card shadow-sm">
+        <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="bi bi-percent"></i> Condiciones de IVA
+            </h5>
+            <a href="{{ path('app_tax_condition_new') }}" class="btn btn-light btn-sm">
+                <i class="bi bi-plus-circle"></i> Crear nueva
+            </a>
+        </div>
+        <div class="card-body">
+            {% if tax_conditions|length > 0 %}
+                <table class="table table-hover align-middle">
+                    <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Código</th>
+                        <th>Etiqueta</th>
+                        <th>Alícuota (%)</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for tax_condition in tax_conditions %}
+                        <tr>
+                            <td>{{ tax_condition.id }}</td>
+                            <td>{{ tax_condition.code }}</td>
+                            <td>{{ tax_condition.label }}</td>
+                            <td>{{ tax_condition.rate }}</td>
+                            <td class="text-end">
+                                <a href="{{ path('app_tax_condition_show', {'id': tax_condition.id}) }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{{ path('app_tax_condition_edit', {'id': tax_condition.id}) }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="alert alert-info">
+                    No se encontraron condiciones registradas.
+                </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
