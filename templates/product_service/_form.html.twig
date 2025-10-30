@@ -1,0 +1,95 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+
+{% if form.vars.errors|length > 0 %}
+    <div class="alert alert-danger">
+        {{ form_errors(form) }}
+    </div>
+{% endif %}
+
+{# Campo: Código y Descripción #}
+<div class="row mb-3">
+    <div class="col-md-4">
+        {% set codeClass = form_errors(form.code) ? 'form-control is-invalid' : 'form-control' %}
+        {{ form_label(form.code) }}
+        {{ form_widget(form.code, {'attr': {'class': codeClass}}) }}
+        {% if form_errors(form.code) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.code) }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-8">
+        {% set labelClass = form_errors(form.label) ? 'form-control is-invalid' : 'form-control' %}
+        {{ form_label(form.label) }}
+        {{ form_widget(form.label, {'attr': {'class': labelClass}}) }}
+        {% if form_errors(form.label) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.label) }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{# Campo: Tipo, Categoría, Unidad #}
+<div class="row mb-3">
+    <div class="col-md-4">
+        {% set typeClass = form_errors(form.type) ? 'form-select is-invalid' : 'form-select' %}
+        {{ form_label(form.type) }}
+        {{ form_widget(form.type, {'attr': {'class': typeClass}}) }}
+        {% if form_errors(form.type) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.type) }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        {% set categoryClass = form_errors(form.category) ? 'form-select is-invalid' : 'form-select' %}
+        {{ form_label(form.category) }}
+        {{ form_widget(form.category, {'attr': {'class': categoryClass}}) }}
+        {% if form_errors(form.category) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.category) }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-4">
+        {% set unitClass = form_errors(form.unit) ? 'form-select is-invalid' : 'form-select' %}
+        {{ form_label(form.unit) }}
+        {{ form_widget(form.unit, {'attr': {'class': unitClass}}) }}
+        {% if form_errors(form.unit) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.unit) }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{# Campo: Condición Fiscal y Precio #}
+<div class="row mb-3">
+    <div class="col-md-6">
+        {% set taxClass = form_errors(form.taxCondition) ? 'form-select is-invalid' : 'form-select' %}
+        {{ form_label(form.taxCondition) }}
+        {{ form_widget(form.taxCondition, {'attr': {'class': taxClass}}) }}
+        {% if form_errors(form.taxCondition) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.taxCondition) }}
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-6">
+        {% set priceClass = form_errors(form.grossPrice) ? 'form-control is-invalid' : 'form-control' %}
+        {{ form_label(form.grossPrice) }}
+        {{ form_widget(form.grossPrice, {'attr': {'class': priceClass}}) }}
+        {% if form_errors(form.grossPrice) %}
+            <div class="invalid-feedback">
+                {{ form_errors(form.grossPrice) }}
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="mt-4">
+    <button class="btn btn-primary">{{ button_label|default('Guardar') }}</button>
+</div>
+
+{{ form_end(form) }}

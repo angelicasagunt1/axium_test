@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Listado de Productos y Servicios{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h1 class="h3">
+                <i class="bi bi-box-seam"></i> Listado de Conceptos de Facturación
+            </h1>
+            <a href="{{ path('app_product_service_new') }}" class="btn btn-success">
+                <i class="bi bi-plus-circle"></i> Nuevo Servicio
+            </a>
+        </div>
+
+        {% if product_services|length > 0 %}
+            <div class="alert alert-info">
+                Se encontraron <strong>{{ product_services|length }}</strong> registros.
+            </div>
+        {% endif %}
+
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead class="table-dark">
+                <tr>
+                    <th><i class="bi bi-hash"></i> ID</th>
+                    <th><i class="bi bi-box"></i> Tipo</th>
+                    <th><i class="bi bi-upc-scan"></i> Código</th>
+                    <th><i class="bi bi-card-text"></i> Descripción</th>
+                    <th><i class="bi bi-currency-dollar"></i> Precio Bruto (ARS)</th>
+                    <th class="text-center"><i class="bi bi-tools"></i> Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for product_service in product_services %}
+                    {% set priceClass = product_service.grossPrice > 10000 ? 'text-danger' : 'text-success' %}
+                    <tr>
+                        <td>{{ product_service.id }}</td>
+                        <td>
+                            {{ product_service.type == 'P' ? 'Producto' : (product_service.type == 'S' ? 'Servicio' : product_service.type) }}
+                        </td>
+                        <td>{{ product_service.code }}</td>
+                        <td>{{ product_service.label }}</td>
+                        <td>
+                                <span class="fw-bold {{ priceClass }}">
+                                    ${{ product_service.grossPrice|number_format(2, ',', '.') }}
+                                </span>
+                        </td>
+                        <td class="text-center">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a href="{{ path('app_product_service_show', {'id': product_service.id}) }}"
+                                   class="btn btn-sm btn-outline-primary" title="Ver detalle">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <a href="{{ path('app_product_service_edit', {'id': product_service.id}) }}"
+                                   class="btn btn-sm btn-outline-warning" title="Editar">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center text-muted">
+                            No se encontraron registros.
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

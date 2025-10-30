@@ -1,0 +1,12 @@
+{
+  "controllers": {
+    "modal": {
+      "enabled": true,
+      "fetch": "./controllers/modal_controller.js"
+    },
+    "turbo": {
+      "enabled": true,
+      "fetch": "@hotwired/turbo"
+    }
+  }
+}

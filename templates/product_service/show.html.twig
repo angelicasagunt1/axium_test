@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalle de Producto o Servicio{% endblock %}
+
+{% block body %}
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">
+                <i class="bi bi-eye"></i> Detalle de Producto o Servicio
+            </h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered align-middle">
+                <tbody>
+                <tr>
+                    <th><i class="bi bi-hash"></i> ID</th>
+                    <td>{{ product_service.id }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-box"></i> Tipo</th>
+                    <td>
+                        {{ product_service.type == 'P' ? 'Producto' : (product_service.type == 'S' ? 'Servicio' : product_service.type) }}
+                    </td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-upc-scan"></i> Código</th>
+                    <td>{{ product_service.code }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-card-text"></i> Descripción</th>
+                    <td>{{ product_service.label }}</td>
+                </tr>
+                <tr>
+                    <th><i class="bi bi-currency-dollar"></i> Precio Bruto (ARS)</th>
+                    <td>${{ product_service.grossPrice|number_format(2, ',', '.') }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="mt-3 d-flex justify-content-between">
+        <a href="{{ path('app_product_service_index') }}" class="btn btn-secondary">
+            <i class="bi bi-arrow-left-circle"></i> Volver al listado
+        </a>
+
+        <div class="d-flex gap-2">
+            <a href="{{ path('app_product_service_edit', {'id': product_service.id}) }}" class="btn btn-outline-primary">
+                <i class="bi bi-pencil-square"></i> Editar
+            </a>
+
+            {{ include('product_service/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}

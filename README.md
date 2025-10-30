@@ -34,5 +34,5 @@ php -S 0.0.0.0:8000 -t public
 
 Accedé desde tu navegador:
 ```
-http://localhost:8080
+http://localhost:8000
 ```

@@ -1,0 +1,28 @@
+<div class="modal fade show d-block" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" style="background: rgba(0,0,0,0.5);" data-controller="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h5 class="modal-title" id="editCategoryModalLabel">
+                    <i class="bi bi-pencil-square"></i> Editar Rubro
+                </h5>
+                <button type="button" class="btn-close" data-action="modal#close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{{ path('app_category_edit', {'id': category.id}) }}">
+                    {{ form_start(form) }}
+                    <div class="mb-3">
+                        {{ form_label(form.label) }}
+                        {{ form_widget(form.label, {'attr': {'class': 'form-control'}}) }}
+                        {{ form_errors(form.label) }}
+                    </div>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-check-circle"></i> Actualizar
+                        </button>
+                    </div>
+                    {{ form_end(form) }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

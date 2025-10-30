@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TaxCondition index{% endblock %}
+
+{% block body %}
+    <h1>TaxCondition index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Label</th>
+                <th>Rate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tax_condition in tax_conditions %}
+            <tr>
+                <td>{{ tax_condition.id }}</td>
+                <td>{{ tax_condition.code }}</td>
+                <td>{{ tax_condition.label }}</td>
+                <td>{{ tax_condition.rate }}</td>
+                <td>
+                    <a href="{{ path('app_tax_condition_show', {'id': tax_condition.id}) }}">show</a>
+                    <a href="{{ path('app_tax_condition_edit', {'id': tax_condition.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_tax_condition_new') }}">Create new</a>
+{% endblock %}
