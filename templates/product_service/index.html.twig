@@ -33,7 +33,7 @@
                 </thead>
                 <tbody>
                 {% for product_service in product_services %}
-                    {% set priceClass = product_service.grossPrice > 10000 ? 'text-danger' : 'text-success' %}
+                    {% set priceClass = product_service.grossPrice > 1000000 ? 'text-danger' : 'text-success' %}
                     <tr>
                         <td>{{ product_service.id }}</td>
                         <td>

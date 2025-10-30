@@ -28,14 +28,14 @@
                             <td>{{ category.id }}</td>
                             <td>{{ category.label }}</td>
                             <td class="text-end">
-                                <a href="{{ path('app_category_show', {'id': category.id}) }}" class="btn btn-sm btn-outline-secondary">
-                                    <i class="bi bi-eye"></i>
-                                </a>
-                                <a href="{{ path('app_category_edit', {'id': category.id}) }}"
-                                   data-turbo-frame="category-edit-modal"
-                                   class="btn btn-sm btn-outline-primary">
+                                <button type="button"
+                                        class="btn btn-sm btn-outline-primary"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#editCategoryModal"
+                                        data-id="{{ category.id }}"
+                                        data-label="{{ category.label }}">
                                     <i class="bi bi-pencil"></i>
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     {% endfor %}
@@ -79,8 +79,46 @@
         </div>
     </div>
 
-    {# Frame para cargar el modal de edición dinámicamente #}
-    <turbo-frame id="category-edit-modal">
-        {# Se cargará el contenido de edit.html.twig aquí #}
-    </turbo-frame>
+    {# Modal de edición #}
+    <div class="modal fade" id="editCategoryModal" tabindex="-1" aria-labelledby="editCategoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form method="post" id="editCategoryForm">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title" id="editCategoryModalLabel">
+                            <i class="bi bi-pencil-square"></i> Editar Rubro
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="id" id="editCategoryId">
+                        <div class="mb-3">
+                            <label for="editCategoryLabel" class="form-label">Nombre</label>
+                            <input type="text" name="label" id="editCategoryLabel" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-check-circle"></i> Actualizar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const editModal = document.getElementById('editCategoryModal');
+        editModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-id');
+            const label = button.getAttribute('data-label');
+
+            document.getElementById('editCategoryId').value = id;
+            document.getElementById('editCategoryLabel').value = label;
+
+            const form = document.getElementById('editCategoryForm');
+            form.action = `/category/${id}/edit`;
+        });
+    </script>
 {% endblock %}

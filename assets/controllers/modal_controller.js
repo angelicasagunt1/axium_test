@@ -1,7 +1,10 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     close() {
-        this.element.remove();
+        const frame = this.element.closest("turbo-frame")
+        if (frame) {
+            frame.innerHTML = ""
+        }
     }
 }
